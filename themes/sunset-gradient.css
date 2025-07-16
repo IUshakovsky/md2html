@@ -1,0 +1,399 @@
+/* Sunset Gradient Theme - Vibrant warm gradients trending in 2025 */
+:root {
+    --gradient-start: #ff6b6b;
+    --gradient-mid: #ffa726;
+    --gradient-end: #ff7043;
+    --accent-gradient: linear-gradient(135deg, #ff6b6b, #ffa726, #ff7043);
+    --text-color: #2d1b69;
+    --text-light: #4a4a4a;
+    --background-color: #fff8f0;
+    --surface-color: #ffffff;
+    --border-color: rgba(255, 107, 107, 0.2);
+    --shadow-color: rgba(255, 107, 107, 0.15);
+    --code-bg: #fff5f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    background: linear-gradient(135deg, #fff8f0 0%, #ffe0e6 50%, #fff8f0 100%);
+    min-height: 100vh;
+    font-size: 16px;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(255, 167, 38, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 112, 67, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background: var(--surface-color);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px var(--shadow-color);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: var(--accent-gradient);
+}
+
+/* Gradient Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-top: 0;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    padding-bottom: 1rem;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--accent-gradient);
+    border-radius: 2px;
+}
+
+h2 {
+    font-size: 2.2rem;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--accent-gradient);
+    border-radius: 3px;
+}
+
+h3 {
+    font-size: 1.8rem;
+    color: var(--gradient-end);
+    position: relative;
+}
+
+h4 {
+    font-size: 1.4rem;
+    color: var(--gradient-mid);
+}
+
+h5, h6 {
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+/* Gradient Links */
+a {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+}
+
+a:hover {
+    background: var(--surface-color);
+    -webkit-text-fill-color: var(--text-color);
+    box-shadow: 0 0 0 2px var(--gradient-start);
+    transform: translateY(-1px);
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-gradient);
+    transition: width 0.3s ease;
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    position: relative;
+}
+
+ul li::before {
+    content: '●';
+    color: var(--gradient-start);
+    position: absolute;
+    left: -1.5rem;
+    font-size: 1.2rem;
+}
+
+/* Gradient Blockquotes */
+blockquote {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(255, 167, 38, 0.05));
+    border-left: 5px solid;
+    border-image: var(--accent-gradient) 1;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 12px 12px 0;
+    color: var(--text-color);
+    font-style: italic;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.1);
+}
+
+blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    font-size: 2rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.5;
+    background-color: var(--surface-color);
+    padding: 0 0.3rem;
+    border-radius: 4px;
+}
+
+/* Code with gradient accents */
+code {
+    background: var(--code-bg);
+    color: var(--gradient-end);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    font-weight: 600;
+}
+
+pre {
+    background: var(--code-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 25px var(--shadow-color);
+    position: relative;
+}
+
+pre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+}
+
+pre code {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    padding: 0;
+}
+
+/* Gradient Tables */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2rem 0;
+    background: var(--surface-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: var(--accent-gradient);
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+tr:hover td {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.02), rgba(255, 167, 38, 0.02));
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Gradient HR */
+hr {
+    border: none;
+    height: 3px;
+    background: var(--accent-gradient);
+    margin: 3rem 0;
+    border-radius: 2px;
+    position: relative;
+}
+
+hr::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 7px;
+    background: var(--accent-gradient);
+    border-radius: 4px;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 1rem 0;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    border: 3px solid transparent;
+    background: var(--accent-gradient);
+    background-clip: padding-box;
+}
+
+/* Floating gradient orbs */
+.container::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: -50px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255, 167, 38, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    table {
+        font-size: 0.9rem;
+    }
+    
+    th, td {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+/* Focus and accessibility */
+:focus {
+    outline: 2px solid var(--gradient-start);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+    background: var(--gradient-start);
+    color: white;
+}
+

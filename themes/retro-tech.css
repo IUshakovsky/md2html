@@ -1,0 +1,445 @@
+/* Retro Tech Theme - Nostalgic computing aesthetics with modern twist */
+:root {
+    --terminal-green: #00ff41;
+    --amber: #ffb000;
+    --retro-blue: #00aaff;
+    --background-dark: #0a0a0a;
+    --background-light: #1a1a1a;
+    --text-color: #00ff41;
+    --text-secondary: #ffb000;
+    --text-muted: #888888;
+    --border-color: #333333;
+    --shadow-color: rgba(0, 255, 65, 0.2);
+    --glow-color: rgba(0, 255, 65, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
+    line-height: 1.5;
+    color: var(--text-color);
+    background: var(--background-dark);
+    font-size: 16px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 65, 0.03) 2px,
+            rgba(0, 255, 65, 0.03) 4px
+        );
+    pointer-events: none;
+    z-index: 1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: var(--background-light);
+    border: 2px solid var(--terminal-green);
+    border-radius: 0;
+    box-shadow: 
+        0 0 20px var(--glow-color),
+        inset 0 0 20px rgba(0, 255, 65, 0.1);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.container::before {
+    content: '> SYSTEM READY_';
+    position: absolute;
+    top: -30px;
+    left: 0;
+    background: var(--background-dark);
+    color: var(--terminal-green);
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    border: 1px solid var(--terminal-green);
+    text-shadow: 0 0 10px var(--terminal-green);
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+/* Terminal Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
+    color: var(--terminal-green);
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 0 10px var(--glow-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    text-align: center;
+    padding: 1rem;
+    border: 2px solid var(--terminal-green);
+    background: rgba(0, 255, 65, 0.05);
+    position: relative;
+}
+
+h1::before {
+    content: '[ ';
+    color: var(--amber);
+}
+
+h1::after {
+    content: ' ]';
+    color: var(--amber);
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: var(--amber);
+    border-bottom: 1px solid var(--amber);
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+h2::before {
+    content: '>> ';
+    color: var(--terminal-green);
+}
+
+h3 {
+    font-size: 1.4rem;
+    color: var(--retro-blue);
+}
+
+h3::before {
+    content: '>>> ';
+    color: var(--terminal-green);
+}
+
+h4 {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+h4::before {
+    content: '# ';
+    color: var(--terminal-green);
+}
+
+h5, h6 {
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+h5::before, h6::before {
+    content: '$ ';
+    color: var(--amber);
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
+}
+
+/* Terminal Links */
+a {
+    color: var(--retro-blue);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid transparent;
+}
+
+a:hover {
+    color: var(--amber);
+    border-color: var(--amber);
+    background: rgba(255, 176, 0, 0.1);
+    text-shadow: 0 0 5px var(--amber);
+}
+
+a::before {
+    content: '[';
+    color: var(--terminal-green);
+}
+
+a::after {
+    content: ']';
+    color: var(--terminal-green);
+}
+
+/* Terminal Lists */
+ul, ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    position: relative;
+}
+
+ul li::before {
+    content: '* ';
+    color: var(--amber);
+    position: absolute;
+    left: -1.5rem;
+    font-weight: bold;
+}
+
+ol li {
+    counter-increment: item;
+}
+
+ol li::before {
+    content: counter(item, decimal-leading-zero) ': ';
+    position: absolute;
+    left: -2.5rem;
+    color: var(--retro-blue);
+    font-weight: bold;
+}
+
+ol {
+    counter-reset: item;
+}
+
+/* Terminal Blockquotes */
+blockquote {
+    background: rgba(0, 255, 65, 0.05);
+    border: 1px solid var(--terminal-green);
+    border-left: 4px solid var(--amber);
+    padding: 1rem;
+    margin: 2rem 0;
+    color: var(--text-color);
+    font-style: normal;
+    position: relative;
+}
+
+blockquote::before {
+    content: 'QUOTE: ';
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: var(--background-light);
+    color: var(--amber);
+    padding: 0 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Terminal Code */
+code {
+    background: var(--background-dark);
+    color: var(--terminal-green);
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border-color);
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
+    font-size: 0.9rem;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+pre {
+    background: var(--background-dark);
+    border: 2px solid var(--terminal-green);
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    position: relative;
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+pre::before {
+    content: 'TERMINAL OUTPUT';
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: var(--background-dark);
+    color: var(--amber);
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+pre code {
+    background: none;
+    border: none;
+    color: var(--terminal-green);
+    padding: 0;
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+/* Retro Tables */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+    margin: 2rem 0;
+    background: var(--background-dark);
+    border: 2px solid var(--terminal-green);
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+
+th {
+    background: rgba(0, 255, 65, 0.1);
+    color: var(--amber);
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px var(--amber);
+}
+
+td {
+    color: var(--text-color);
+}
+
+tr:hover td {
+    background: rgba(0, 255, 65, 0.05);
+}
+
+/* Terminal HR */
+hr {
+    border: none;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--terminal-green) 0px,
+        var(--terminal-green) 10px,
+        var(--amber) 10px,
+        var(--amber) 20px
+    );
+    margin: 3rem 0;
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+    border: 2px solid var(--terminal-green);
+    filter: contrast(1.2) brightness(0.9) hue-rotate(90deg);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* Terminal effects */
+.container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 100px,
+            rgba(0, 255, 65, 0.02) 100px,
+            rgba(0, 255, 65, 0.02) 102px
+        );
+    pointer-events: none;
+}
+
+/* Focus states */
+:focus {
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
+    text-shadow: 0 0 10px var(--amber);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    table {
+        font-size: 0.8rem;
+    }
+    
+    th, td {
+        padding: 0.5rem 0.25rem;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+    background: var(--amber);
+    color: var(--background-dark);
+    text-shadow: none;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .container::before {
+        animation: none;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* Terminal cursor effect */
+@keyframes cursor {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Add terminal cursor to the end of content */
+.container::after {
+    content: '_';
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: var(--terminal-green);
+    font-size: 1.2rem;
+    animation: cursor 1s infinite;
+    z-index: 10;
+}
+

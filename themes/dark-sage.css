@@ -1,0 +1,411 @@
+/* Dark Sage Theme - Sustainable design with nature-inspired colors */
+:root {
+    --primary-sage: #87a96b;
+    --dark-sage: #5d6c47;
+    --light-sage: #a8c686;
+    --forest-green: #2d4a22;
+    --cream: #f7f5f0;
+    --charcoal: #2c3e2d;
+    --text-color: #1a2e1a;
+    --text-light: #4a5d4a;
+    --background-color: #fafaf8;
+    --surface-color: #ffffff;
+    --border-color: rgba(135, 169, 107, 0.2);
+    --shadow-color: rgba(135, 169, 107, 0.15);
+    --accent-color: #6b8e4e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--cream) 100%);
+    min-height: 100vh;
+    font-size: 16px;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(135, 169, 107, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(93, 108, 71, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background: var(--surface-color);
+    border-radius: 16px;
+    box-shadow: 0 16px 48px var(--shadow-color);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-sage), var(--accent-color), var(--dark-sage));
+    border-radius: 16px 16px 0 0;
+}
+
+/* Natural Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--forest-green);
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 2.8rem;
+    margin-top: 0;
+    color: var(--dark-sage);
+    text-align: center;
+    padding-bottom: 1.5rem;
+    position: relative;
+}
+
+h1::after {
+    content: '🌿';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 2.2rem;
+    color: var(--primary-sage);
+    border-bottom: 2px solid var(--light-sage);
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 60px;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+h3 {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+}
+
+h4 {
+    font-size: 1.4rem;
+    color: var(--dark-sage);
+}
+
+h5, h6 {
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    text-align: justify;
+}
+
+/* Organic Links */
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+}
+
+a:hover {
+    color: var(--forest-green);
+    background: rgba(135, 169, 107, 0.1);
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--primary-sage);
+    transition: width 0.3s ease;
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+/* Natural Lists */
+ul, ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    position: relative;
+}
+
+ul li::before {
+    content: '🍃';
+    position: absolute;
+    left: -1.8rem;
+    font-size: 0.9rem;
+}
+
+ol li {
+    counter-increment: item;
+}
+
+ol li::before {
+    content: counter(item) '.';
+    position: absolute;
+    left: -2rem;
+    color: var(--primary-sage);
+    font-weight: 600;
+}
+
+ol {
+    counter-reset: item;
+}
+
+/* Earth-toned Blockquotes */
+blockquote {
+    background: linear-gradient(135deg, rgba(135, 169, 107, 0.08), rgba(168, 198, 134, 0.08));
+    border-left: 4px solid var(--primary-sage);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 12px 12px 0;
+    color: var(--text-color);
+    font-style: italic;
+    position: relative;
+    box-shadow: 0 4px 16px rgba(135, 169, 107, 0.1);
+}
+
+blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    font-size: 2rem;
+    color: var(--light-sage);
+    opacity: 0.4;
+    font-family: Georgia, serif;
+    background: var(--surface-color);
+    padding: 0 0.3rem;
+    border-radius: 4px;
+}
+
+/* Natural Code */
+code {
+    background: rgba(135, 169, 107, 0.1);
+    color: var(--forest-green);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+}
+
+pre {
+    background: rgba(135, 169, 107, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 16px var(--shadow-color);
+    position: relative;
+}
+
+pre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-sage), var(--light-sage));
+}
+
+pre code {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    padding: 0;
+}
+
+/* Sustainable Tables */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2rem 0;
+    background: var(--surface-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: linear-gradient(135deg, var(--primary-sage), var(--light-sage));
+    color: white;
+    font-weight: 600;
+    font-family: Georgia, serif;
+}
+
+tr:hover td {
+    background: rgba(135, 169, 107, 0.03);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Organic HR */
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-sage), transparent);
+    margin: 3rem 0;
+    position: relative;
+}
+
+hr::after {
+    content: '🌱';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface-color);
+    padding: 0 0.5rem;
+    font-size: 1.2rem;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1rem 0;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    border: 2px solid var(--border-color);
+}
+
+/* Floating natural elements */
+.container::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    right: -30px;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(135, 169, 107, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sway 8s ease-in-out infinite;
+}
+
+@keyframes sway {
+    0%, 100% { transform: translateX(0px) rotate(0deg); }
+    50% { transform: translateX(-10px) rotate(5deg); }
+}
+
+/* Sustainable focus indicator */
+:focus {
+    outline: 2px solid var(--primary-sage);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    table {
+        font-size: 0.9rem;
+    }
+    
+    th, td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    p {
+        text-align: left;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+    background: var(--light-sage);
+    color: var(--forest-green);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .container::after {
+        animation: none;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+

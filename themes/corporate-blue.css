@@ -1,0 +1,401 @@
+/* Corporate Blue Theme - Professional and trustworthy for business content */
+:root {
+    --primary-blue: #1e3a8a;
+    --secondary-blue: #3b82f6;
+    --light-blue: #60a5fa;
+    --accent-blue: #1d4ed8;
+    --navy: #1e293b;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --text-color: #0f172a;
+    --text-light: #475569;
+    --background-color: #ffffff;
+    --surface-color: #f8fafc;
+    --border-color: #e2e8f0;
+    --shadow-color: rgba(30, 58, 138, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--surface-color);
+    font-size: 16px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background: var(--background-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px var(--shadow-color);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue), var(--light-blue));
+    border-radius: 12px 12px 0 0;
+}
+
+/* Professional Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    color: var(--navy);
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 3px solid var(--secondary-blue);
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--accent-blue);
+}
+
+h2 {
+    font-size: 2rem;
+    color: var(--primary-blue);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 50px;
+    height: 2px;
+    background: var(--secondary-blue);
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--accent-blue);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--primary-blue);
+}
+
+h5, h6 {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    text-align: justify;
+}
+
+/* Professional Links */
+a {
+    color: var(--secondary-blue);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+}
+
+a:hover {
+    color: var(--primary-blue);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--secondary-blue);
+    transition: width 0.3s ease;
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+/* Structured Lists */
+ul, ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    position: relative;
+}
+
+ul li::before {
+    content: '▸';
+    color: var(--secondary-blue);
+    position: absolute;
+    left: -1.5rem;
+    font-weight: bold;
+}
+
+ol li {
+    counter-increment: item;
+}
+
+ol li::before {
+    content: counter(item) '.';
+    position: absolute;
+    left: -2rem;
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+ol {
+    counter-reset: item;
+}
+
+/* Professional Blockquotes */
+blockquote {
+    background: var(--gray-50);
+    border-left: 4px solid var(--secondary-blue);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 8px 8px 0;
+    color: var(--text-color);
+    font-style: italic;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    font-size: 2rem;
+    color: var(--light-blue);
+    opacity: 0.4;
+    background: var(--gray-50);
+    padding: 0 0.3rem;
+    border-radius: 4px;
+}
+
+/* Clean Code */
+code {
+    background: var(--gray-100);
+    color: var(--accent-blue);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+}
+
+pre {
+    background: var(--gray-50);
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.05);
+    position: relative;
+}
+
+pre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+}
+
+pre code {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    padding: 0;
+}
+
+/* Business Tables */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2rem 0;
+    background: var(--background-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+tr:hover td {
+    background: var(--gray-50);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Professional HR */
+hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+    margin: 3rem 0;
+    position: relative;
+}
+
+hr::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--secondary-blue);
+    border-radius: 2px;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1rem 0;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+/* Professional accents */
+.container::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--secondary-blue), var(--light-blue));
+    border-radius: 50%;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+/* Focus states */
+:focus {
+    outline: 2px solid var(--secondary-blue);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+        border-radius: 8px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    table {
+        font-size: 0.9rem;
+    }
+    
+    th, td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    p {
+        text-align: left;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+    background: var(--light-blue);
+    color: white;
+}
+
+/* Print styles */
+@media print {
+    .container {
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+    }
+    
+    .container::before,
+    .container::after {
+        display: none;
+    }
+}
+
