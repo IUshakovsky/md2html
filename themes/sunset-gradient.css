@@ -20,30 +20,16 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    line-height: 1.7;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
     color: var(--text-color);
-    background: linear-gradient(135deg, #fff8f0 0%, #ffe0e6 50%, #fff8f0 100%);
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+    margin: 0;
+    padding: 2rem;
     min-height: 100vh;
-    font-size: 16px;
-    position: relative;
 }
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 10% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 90% 80%, rgba(255, 167, 38, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 112, 67, 0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
-}
-
+/* Gradient Container */
 .container {
     max-width: 800px;
     margin: 0 auto;

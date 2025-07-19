@@ -64,25 +64,6 @@ body::before {
     z-index: 2;
 }
 
-.container::before {
-    content: '> SYSTEM READY_';
-    position: absolute;
-    top: -30px;
-    left: 0;
-    background: var(--background-dark);
-    color: var(--terminal-green);
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    border: 1px solid var(--terminal-green);
-    text-shadow: 0 0 10px var(--terminal-green);
-    animation: blink 1.5s infinite;
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0.3; }
-}
-
 /* Terminal Typography */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;

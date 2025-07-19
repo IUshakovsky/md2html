@@ -19,32 +19,17 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background: linear-gradient(135deg, var(--background-start) 0%, var(--background-end) 100%);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    margin: 0;
+    padding: 2rem;
     min-height: 100vh;
-    font-size: 16px;
-    position: relative;
 }
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
-}
-
+/* Glass Container */
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -75,7 +60,7 @@ h1 {
     font-weight: 700;
     text-align: center;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 2px solid var(--primary-color);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -170,10 +155,11 @@ blockquote::before {
     left: 10px;
     font-size: 2rem;
     color: var(--accent-color);
-    opacity: 0.4;
+    opacity: 0.8;
     background: var(--glass-bg);
     padding: 0 0.3rem;
     border-radius: 4px;
+    font-weight: bold;
 }
 
 /* Glass Code */
@@ -259,7 +245,8 @@ hr::after {
     transform: translateX(-50%);
     width: 60px;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    filter: blur(1px);
     border-radius: 2px;
 }
 

@@ -190,19 +190,22 @@ pre {
     margin: 1.5rem 0;
     position: relative;
     box-shadow: 0 0 15px var(--glow-color);
+    padding: 2.5rem 1.5rem 1.5rem 1.5rem;
 }
 
 pre::before {
     content: 'TERMINAL';
     position: absolute;
-    top: -15px;
-    left: 10px;
+    top: -5px;
+    left: 20px;
     background: var(--primary-color);
     color: var(--background-color);
-    padding: 0.3rem 0.8rem;
+    padding: 0.4rem 1rem;
     font-size: 0.8rem;
     font-weight: 900;
     border-radius: 2px;
+    z-index: 10;
+    border: 1px solid var(--primary-color);
 }
 
 pre code {
