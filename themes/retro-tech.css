@@ -334,25 +334,6 @@ img {
     box-shadow: 0 0 15px var(--glow-color);
 }
 
-/* Terminal effects */
-.container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 100px,
-            rgba(0, 255, 65, 0.02) 100px,
-            rgba(0, 255, 65, 0.02) 102px
-        );
-    pointer-events: none;
-}
-
 /* Focus states */
 :focus {
     outline: 2px solid var(--amber);
@@ -412,15 +393,4 @@ html {
     51%, 100% { opacity: 0; }
 }
 
-/* Add terminal cursor to the end of content */
-.container::after {
-    content: '_';
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    color: var(--terminal-green);
-    font-size: 1.2rem;
-    animation: cursor 1s infinite;
-    z-index: 10;
-}
 
