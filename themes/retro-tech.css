@@ -178,6 +178,7 @@ a::after {
 ul, ol {
     margin-bottom: 1.5rem;
     padding-left: 2rem;
+    list-style: none;
 }
 
 li {
@@ -186,28 +187,85 @@ li {
     position: relative;
 }
 
+/* First level list items */
 ul li::before {
-    content: '* ';
-    color: var(--amber);
+    content: '> ';
+    color: var(--terminal-green);
     position: absolute;
     left: -1.5rem;
     font-weight: bold;
+    font-family: 'Courier New', monospace;
+}
+
+/* Second level nested list items */
+ul ul li::before {
+    content: '+ ';
+    color: var(--amber);
+    left: -1.3rem;
+    font-size: 0.9rem;
+}
+
+/* Third level nested list items */
+ul ul ul li::before {
+    content: '- ';
+    color: var(--terminal-green);
+    left: -1.1rem;
+    font-size: 0.8rem;
+}
+
+/* Fourth level nested list items */
+ul ul ul ul li::before {
+    content: '* ';
+    color: var(--amber);
+    left: -0.9rem;
+    font-size: 0.7rem;
+}
+
+/* Ordered list styling */
+ol {
+    counter-reset: item;
 }
 
 ol li {
     counter-increment: item;
 }
 
-ol li::before {
+ol > li::before {
     content: counter(item, decimal-leading-zero) ': ';
     position: absolute;
     left: -2.5rem;
     color: var(--retro-blue);
     font-weight: bold;
+    font-size: 0.9rem;
 }
 
-ol {
-    counter-reset: item;
+/* Nested ordered list styling */
+ol ol {
+    counter-reset: subitem;
+}
+
+ol ol li {
+    counter-increment: subitem;
+}
+
+ol ol > li::before {
+    content: counter(item, decimal-leading-zero) '.' counter(subitem, decimal-leading-zero) ': ';
+    left: -3rem;
+    font-size: 0.85rem;
+}
+
+ol ol ol {
+    counter-reset: subsubitem;
+}
+
+ol ol ol li {
+    counter-increment: subsubitem;
+}
+
+ol ol ol > li::before {
+    content: counter(item, decimal-leading-zero) '.' counter(subitem, decimal-leading-zero) '.' counter(subsubitem, decimal-leading-zero) ': ';
+    left: -3.5rem;
+    font-size: 0.8rem;
 }
 
 /* Terminal Blockquotes */

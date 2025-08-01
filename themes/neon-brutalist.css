@@ -109,6 +109,7 @@ a:hover {
 ul, ol {
     margin-bottom: 1.5rem;
     padding-left: 2rem;
+    list-style: none;
 }
 
 li {
@@ -117,6 +118,7 @@ li {
     position: relative;
 }
 
+/* First level list items */
 ul li::before {
     content: "▶";
     color: var(--primary-color);
@@ -125,20 +127,75 @@ ul li::before {
     font-weight: bold;
 }
 
+/* Second level nested list items */
+ul ul li::before {
+    content: "►";
+    color: var(--secondary-color);
+    left: -1.3rem;
+    font-size: 0.9rem;
+}
+
+/* Third level nested list items */
+ul ul ul li::before {
+    content: "▸";
+    color: var(--accent-color);
+    left: -1.1rem;
+    font-size: 0.8rem;
+}
+
+/* Fourth level nested list items */
+ul ul ul ul li::before {
+    content: "▪";
+    color: var(--primary-color);
+    left: -0.9rem;
+    font-size: 0.7rem;
+}
+
+/* Ordered list styling */
+ol {
+    counter-reset: item;
+}
+
 ol li {
     counter-increment: item;
 }
 
-ol li::before {
+ol > li::before {
     content: "[" counter(item) "]";
     color: var(--secondary-color);
     position: absolute;
     left: -2rem;
     font-weight: bold;
+    font-size: 0.9rem;
 }
 
-ol {
-    counter-reset: item;
+/* Nested ordered list styling */
+ol ol {
+    counter-reset: subitem;
+}
+
+ol ol li {
+    counter-increment: subitem;
+}
+
+ol ol > li::before {
+    content: "[" counter(item) "." counter(subitem) "]";
+    left: -2.4rem;
+    font-size: 0.85rem;
+}
+
+ol ol ol {
+    counter-reset: subsubitem;
+}
+
+ol ol ol li {
+    counter-increment: subsubitem;
+}
+
+ol ol ol > li::before {
+    content: "[" counter(item) "." counter(subitem) "." counter(subsubitem) "]";
+    left: -2.8rem;
+    font-size: 0.8rem;
 }
 
 /* Stark Blockquotes */

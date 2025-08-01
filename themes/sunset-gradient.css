@@ -168,6 +168,7 @@ a:hover::after {
 ul, ol {
     margin-bottom: 1.5rem;
     padding-left: 2rem;
+    list-style: none;
 }
 
 li {
@@ -176,12 +177,87 @@ li {
     position: relative;
 }
 
+/* First level list items */
 ul li::before {
     content: '●';
     color: var(--gradient-start);
     position: absolute;
     left: -1.5rem;
     font-size: 1.2rem;
+}
+
+/* Second level nested list items */
+ul ul li::before {
+    content: '○';
+    color: var(--gradient-mid);
+    left: -1.3rem;
+    font-size: 1.0rem;
+}
+
+/* Third level nested list items */
+ul ul ul li::before {
+    content: '▪';
+    color: var(--gradient-end);
+    left: -1.1rem;
+    font-size: 0.9rem;
+}
+
+/* Fourth level nested list items */
+ul ul ul ul li::before {
+    content: '▫';
+    color: var(--gradient-start);
+    left: -0.9rem;
+    font-size: 0.8rem;
+}
+
+/* Ordered list styling */
+ol {
+    counter-reset: item;
+}
+
+ol li {
+    counter-increment: item;
+}
+
+ol > li::before {
+    content: counter(item) '.';
+    position: absolute;
+    left: -2rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Nested ordered list styling */
+ol ol {
+    counter-reset: subitem;
+}
+
+ol ol li {
+    counter-increment: subitem;
+}
+
+ol ol > li::before {
+    content: counter(item) '.' counter(subitem);
+    left: -2.2rem;
+    font-size: 0.85rem;
+}
+
+ol ol ol {
+    counter-reset: subsubitem;
+}
+
+ol ol ol li {
+    counter-increment: subsubitem;
+}
+
+ol ol ol > li::before {
+    content: counter(item) '.' counter(subitem) '.' counter(subsubitem);
+    left: -2.4rem;
+    font-size: 0.8rem;
 }
 
 /* Gradient Blockquotes */

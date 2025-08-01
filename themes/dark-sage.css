@@ -150,6 +150,7 @@ a:hover::after {
 ul, ol {
     margin-bottom: 1.5rem;
     padding-left: 2rem;
+    list-style: none;
 }
 
 li {
@@ -158,6 +159,7 @@ li {
     position: relative;
 }
 
+/* First level list items */
 ul li::before {
     content: '🍃';
     position: absolute;
@@ -165,20 +167,72 @@ ul li::before {
     font-size: 0.9rem;
 }
 
+/* Second level nested list items */
+ul ul li::before {
+    content: '🌱';
+    left: -1.6rem;
+    font-size: 0.8rem;
+}
+
+/* Third level nested list items */
+ul ul ul li::before {
+    content: '🌿';
+    left: -1.4rem;
+    font-size: 0.7rem;
+}
+
+/* Fourth level nested list items */
+ul ul ul ul li::before {
+    content: '🌾';
+    left: -1.2rem;
+    font-size: 0.6rem;
+}
+
+/* Ordered list styling */
+ol {
+    counter-reset: item;
+}
+
 ol li {
     counter-increment: item;
 }
 
-ol li::before {
+ol > li::before {
     content: counter(item) '.';
     position: absolute;
     left: -2rem;
     color: var(--primary-sage);
     font-weight: 600;
+    font-size: 0.9rem;
 }
 
-ol {
-    counter-reset: item;
+/* Nested ordered list styling */
+ol ol {
+    counter-reset: subitem;
+}
+
+ol ol li {
+    counter-increment: subitem;
+}
+
+ol ol > li::before {
+    content: counter(item) '.' counter(subitem);
+    left: -2.2rem;
+    font-size: 0.85rem;
+}
+
+ol ol ol {
+    counter-reset: subsubitem;
+}
+
+ol ol ol li {
+    counter-increment: subsubitem;
+}
+
+ol ol ol > li::before {
+    content: counter(item) '.' counter(subitem) '.' counter(subsubitem);
+    left: -2.4rem;
+    font-size: 0.8rem;
 }
 
 /* Earth-toned Blockquotes */
