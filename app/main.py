@@ -69,10 +69,34 @@ def preprocess_markdown_for_nested_lists(markdown_content: str) -> str:
                 result.append('')
             continue
             
-        # Don't process citations section
+        # Handle citations section - convert to proper list format
         if in_citations:
-            result.append(line)
-            continue
+            # Check if we've reached the end of citations section
+            if line.strip() == '' and i + 1 < len(lines) and not lines[i + 1].strip().startswith('['):
+                # End of citations section
+                in_citations = False
+                result.append(line)
+                continue
+            elif line.strip() and not line.strip().startswith('['):
+                # Non-citation line encountered, end citations section
+                in_citations = False
+                # Process this line normally (fall through to regular processing)
+            else:
+                # Convert citation lines to proper Markdown list items
+                if line.strip() and line.strip().startswith('[') and ']' in line:
+                    # Convert "[1] url" to "1. url" for proper ordered list
+                    citation_match = line.strip()
+                    if citation_match.startswith('[') and ']' in citation_match:
+                        # Extract number and URL
+                        bracket_end = citation_match.find(']')
+                        number = citation_match[1:bracket_end]
+                        url = citation_match[bracket_end + 1:].strip()
+                        result.append(f"{number}. {url}")
+                    else:
+                        result.append(line)
+                else:
+                    result.append(line)
+                continue
         
         # Convert 2-space indentation to 4-space for proper nesting
         # Handle both unordered lists (- *) and ordered lists (1. 2. etc.)
