@@ -43,121 +43,159 @@ AVAILABLE_THEMES = [
     "retro-tech"
 ]
 
-def preprocess_markdown_for_nested_lists(markdown_content: str) -> str:
-    """Fix common nested list formatting issues for proper Markdown parsing"""
-    # The old implementation was overly complex, let's use a simpler approach
-    # that specifically addresses the known issues
+def _is_list_item(line: str) -> tuple[bool, str]:
+    """Check if a line is a list item and return (is_list, type).
     
-    # Main issues to fix:
-    # 1. Convert 2-space indented list items to 4-space for proper nesting
-    # 2. Ensure ordered lists are processed correctly
-    # 3. Remove excessive blank lines
-    # 4. Preserve citations section formatting
+    Returns:
+        tuple: (is_list_item, list_type) where list_type is 'unordered', 'ordered', or 'none'
+    """
+    stripped = line.lstrip()
     
-    lines = markdown_content.split('\n')
+    # Check unordered list markers
+    if stripped.startswith(('- ', '* ', '+ ')):
+        return True, 'unordered'
+    
+    # Check ordered list markers (number followed by dot and space)
+    if len(stripped) > 2:
+        parts = stripped.split('. ', 1)
+        if len(parts) == 2 and parts[0].isdigit():
+            return True, 'ordered'
+    
+    return False, 'none'
+
+
+def _is_citation_line(line: str) -> bool:
+    """Check if a line is a citation in [n] format."""
+    stripped = line.strip()
+    return (stripped.startswith('[') and 
+            ']' in stripped and 
+            stripped.find(']') > 1 and
+            stripped[1:stripped.find(']')].isdigit())
+
+
+def _fix_list_indentation(line: str) -> str:
+    """Convert 2-space indentation to 4-space for proper Markdown nesting."""
+    is_list, _ = _is_list_item(line)
+    if not is_list:
+        return line
+    
+    indent = len(line) - len(line.lstrip())
+    if 0 < indent < 4:  # If indented but not enough for proper nesting
+        return '    ' + line.lstrip()
+    
+    return line
+
+
+def _process_special_sections(lines: list[str]) -> list[str]:
+    """Process special sections like citations that need custom formatting."""
     result = []
-    in_citations = False
+    i = 0
     
-    # First pass: Fix indentation for nested lists
-    for i, line in enumerate(lines):
-        # Handle citations section
-        if line.strip().lower().startswith('citations:'):
-            in_citations = True
+    while i < len(lines):
+        line = lines[i]
+        
+        # Detect section headers that need special processing
+        if line.strip().lower().endswith(':') and line.strip().lower() in ['citations:', 'references:', 'bibliography:']:
             result.append(line)
-            # Ensure proper line break after citations header
-            if i + 1 < len(lines) and lines[i + 1].strip() and not lines[i + 1].strip().startswith('['):
-                result.append('')
-            continue
+            i += 1
             
-        # Handle citations section - convert to proper list format
-        if in_citations:
-            # Check if we've reached the end of citations section
-            if line.strip() == '' and i + 1 < len(lines) and not lines[i + 1].strip().startswith('['):
-                # End of citations section
-                in_citations = False
-                result.append(line)
-                continue
-            elif line.strip() and not line.strip().startswith('['):
-                # Non-citation line encountered, end citations section
-                in_citations = False
-                # Process this line normally (fall through to regular processing)
-            else:
-                # Convert citation lines to proper Markdown list items
-                if line.strip() and line.strip().startswith('[') and ']' in line:
-                    # Convert "[1] url" to "1. url" for proper ordered list
-                    citation_match = line.strip()
-                    if citation_match.startswith('[') and ']' in citation_match:
-                        # Extract number and URL
-                        bracket_end = citation_match.find(']')
-                        number = citation_match[1:bracket_end]
-                        url = citation_match[bracket_end + 1:].strip()
-                        result.append(f"{number}. {url}")
-                    else:
-                        result.append(line)
+            # Process the section content
+            while i < len(lines):
+                current_line = lines[i]
+                
+                # End of section: empty line followed by non-citation content
+                if (not current_line.strip() and 
+                    i + 1 < len(lines) and 
+                    lines[i + 1].strip() and 
+                    not _is_citation_line(lines[i + 1])):
+                    result.append(current_line)
+                    break
+                
+                # End of section: non-citation, non-empty line
+                if current_line.strip() and not _is_citation_line(current_line):
+                    # This line belongs to the next section, don't consume it
+                    break
+                
+                # Process citation lines
+                if _is_citation_line(current_line):
+                    # Add line break formatting for proper display
+                    result.append(current_line.rstrip() + '  ')
                 else:
-                    result.append(line)
-                continue
+                    result.append(current_line)
+                
+                i += 1
+            continue
         
-        # Convert 2-space indentation to 4-space for proper nesting
-        # Handle both unordered lists (- *) and ordered lists (1. 2. etc.)
-        stripped = line.lstrip()
-        is_unordered = stripped.startswith('- ') or stripped.startswith('* ')
-        is_ordered = False
-        
-        # Check if it's an ordered list item (starts with number followed by dot and space)
-        if not is_unordered and len(stripped) > 2:
-            parts = stripped.split('. ', 1)
-            if len(parts) == 2 and parts[0].isdigit():
-                is_ordered = True
-        
-        if is_unordered or is_ordered:
-            indent = len(line) - len(line.lstrip())
-            if 0 < indent < 4:  # If indented but not enough
-                result.append('    ' + line.lstrip())
-            else:
-                result.append(line)
-        else:
-            result.append(line)
+        result.append(line)
+        i += 1
     
-    # Second pass: Remove excessive blank lines and ensure proper spacing
-    final_result = []
+    return result
+
+
+def _clean_blank_lines(lines: list[str]) -> list[str]:
+    """Remove excessive blank lines and ensure proper spacing around lists."""
+    result = []
     prev_blank = False
-    prev_is_list_item = False
-    list_block_started = False
+    prev_is_list = False
     
-    for i, line in enumerate(result):
+    for i, line in enumerate(lines):
         is_blank = not line.strip()
-        is_list_item = (line.lstrip().startswith('- ') or 
-                        line.lstrip().startswith('* ') or
-                        (line.strip() and line.strip()[0].isdigit() and '. ' in line.strip()))
-        is_indented = len(line) > len(line.lstrip()) and len(line.lstrip()) > 0
+        is_list, _ = _is_list_item(line)
+        is_nested = len(line) > len(line.lstrip()) and len(line.lstrip()) > 0
         
-        # Skip multiple blank lines
+        # Skip consecutive blank lines
         if is_blank and prev_blank:
             continue
-            
-        # Add blank line before a list item that follows non-list content
-        if is_list_item and not is_indented and not prev_is_list_item and not prev_blank and i > 0:
-            final_result.append('')
-            list_block_started = True
-            
-        # Don't add blank lines between a list item and its nested items
-        if is_blank and prev_is_list_item and i + 1 < len(result) and len(result[i+1]) > len(result[i+1].lstrip()):
-            continue
-            
-        # Add this line
-        final_result.append(line)
-        prev_blank = is_blank
         
+        # Add blank line before top-level list items that follow non-list content
+        if (is_list and not is_nested and not prev_is_list and 
+            not prev_blank and i > 0 and result):
+            result.append('')
+        
+        # Skip blank lines between list items and their nested content
+        if (is_blank and prev_is_list and 
+            i + 1 < len(lines) and 
+            len(lines[i + 1]) > len(lines[i + 1].lstrip())):
+            continue
+        
+        result.append(line)
+        prev_blank = is_blank
         if not is_blank:
-            prev_is_list_item = is_list_item
+            prev_is_list = is_list
+    
+    return result
+
+
+def preprocess_markdown_for_nested_lists(markdown_content: str) -> str:
+    """Preprocess Markdown content to fix common formatting issues.
+    
+    This function applies several transformations to ensure proper Markdown parsing:
+    1. Fixes list indentation (converts 2-space to 4-space for nesting)
+    2. Handles special sections like citations with custom formatting
+    3. Cleans up excessive blank lines while preserving structure
+    
+    Args:
+        markdown_content: Raw Markdown content string
+        
+    Returns:
+        Processed Markdown content with formatting fixes applied
+    """
+    if not markdown_content.strip():
+        return markdown_content
+    
+    lines = markdown_content.split('\n')
+    
+    # Apply transformations in sequence
+    lines = [_fix_list_indentation(line) for line in lines]
+    lines = _process_special_sections(lines)
+    lines = _clean_blank_lines(lines)
     
     # Ensure proper ending
-    md_text = '\n'.join(final_result)
-    if not md_text.endswith('\n'):
-        md_text += '\n'
-        
-    return md_text
+    result = '\n'.join(lines)
+    if result and not result.endswith('\n'):
+        result += '\n'
+    
+    return result
 
 def load_theme_css(theme_name: str) -> str:
     """Load CSS content for the specified theme"""
