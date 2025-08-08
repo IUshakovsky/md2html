@@ -96,7 +96,8 @@ def _process_special_sections(lines: list[str]) -> list[str]:
         
         # Detect section headers that need special processing
         if line.strip().lower().endswith(':') and line.strip().lower() in ['citations:', 'references:', 'bibliography:']:
-            result.append(line)
+            # Add an explicit line break after the caption so the content starts on the next line
+            result.append(line.rstrip() + '<br>')
             i += 1
             
             # Process the section content
@@ -132,36 +133,67 @@ def _process_special_sections(lines: list[str]) -> list[str]:
     return result
 
 
+def _is_header(line: str) -> bool:
+    """Check if a line is a Markdown header."""
+    stripped = line.strip()
+    return stripped.startswith('#') and ' ' in stripped
+
+
 def _clean_blank_lines(lines: list[str]) -> list[str]:
     """Remove excessive blank lines and ensure proper spacing around lists."""
     result = []
     prev_blank = False
-    prev_is_list = False
+    in_list_block = False  # Track if we're inside a list block (including nested items)
+    prev_is_header = False
     
     for i, line in enumerate(lines):
-        is_blank = not line.strip()
-        is_list, _ = _is_list_item(line)
-        is_nested = len(line) > len(line.lstrip()) and len(line.lstrip()) > 0
+        # Clean trailing whitespace from blank lines to prevent <p> wrapping
+        cleaned_line = line.rstrip() if line.strip() == '' else line
+        is_blank = not cleaned_line.strip()
+        is_list, _ = _is_list_item(cleaned_line)
+        is_nested = len(cleaned_line) > len(cleaned_line.lstrip()) and len(cleaned_line.lstrip()) > 0
+        is_header = _is_header(cleaned_line)
+        is_top_level_list = is_list and not is_nested
+        
+        # Check if next line is also a top-level list item
+        next_is_top_level_list = False
+        if i + 1 < len(lines):
+            next_line_cleaned = lines[i + 1].rstrip() if lines[i + 1].strip() == '' else lines[i + 1]
+            next_is_list, _ = _is_list_item(next_line_cleaned)
+            next_is_nested = len(next_line_cleaned) > len(next_line_cleaned.lstrip()) and len(next_line_cleaned.lstrip()) > 0
+            next_is_top_level_list = next_is_list and not next_is_nested
         
         # Skip consecutive blank lines
         if is_blank and prev_blank:
             continue
         
+        # Skip blank lines between top-level list items to prevent <p> wrapping
+        if (is_blank and in_list_block and next_is_top_level_list):
+            continue
+        
         # Add blank line before top-level list items that follow non-list content
-        if (is_list and not is_nested and not prev_is_list and 
-            not prev_blank and i > 0 and result):
+        # BUT NOT if the previous line was a header (to avoid <p> wrapping)
+        if (is_top_level_list and not in_list_block and 
+            not prev_blank and not prev_is_header and i > 0 and result):
             result.append('')
         
         # Skip blank lines between list items and their nested content
-        if (is_blank and prev_is_list and 
+        if (is_blank and in_list_block and 
             i + 1 < len(lines) and 
             len(lines[i + 1]) > len(lines[i + 1].lstrip())):
             continue
         
-        result.append(line)
+        # Use cleaned line (removes trailing spaces from blank lines)
+        result.append(cleaned_line)
         prev_blank = is_blank
+        
+        # Update state tracking
         if not is_blank:
-            prev_is_list = is_list
+            if is_top_level_list:
+                in_list_block = True  # Start or continue list block
+            elif not is_list and not is_nested:
+                in_list_block = False  # End list block when we hit non-list content
+            prev_is_header = is_header
     
     return result
 
